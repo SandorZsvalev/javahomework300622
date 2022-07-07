@@ -3,6 +3,10 @@ package com.company;
 import java.util.HashSet;
 
 public class Car {
+
+    private static final int DEFAULT_ENGINE_CAPACITY = 50;
+    private static final int DEFAULT_ENGINE_HP = 0;
+
     private int engineCapacity;
     private int engineHP;
     private String gear;
@@ -11,8 +15,8 @@ public class Car {
     private String model;
 
     public Car(int engineCapacity, int engineHP, String driveType, String gear, String color, String model) {
-        this.engineCapacity = checkEngineCapacity (engineCapacity) ? engineCapacity : 50;
-        this.engineHP = checkEngineHP (engineHP) ? engineHP : 0;
+        this.engineCapacity = checkEngineCapacity (engineCapacity) ? engineCapacity : DEFAULT_ENGINE_CAPACITY;
+        this.engineHP = checkEngineHP (engineHP) ? engineHP : DEFAULT_ENGINE_HP;
         this.gear = checkGear(gear) ? gear : "not specified";
         this.driveType = checkDriveType(driveType) ? driveType : "not specified";
         this.color = checkColor(color) ? color : "null value";
@@ -95,14 +99,18 @@ public class Car {
     }
 
     private boolean checkColor (String color) {
-        return !color.equals("");
+        if (color != null) {
+            return !color.equals("");
+        } else {
+            return false;
+        }
     }
 
     private boolean checkModel (String model) {
         // здесь проверяем циклом по массиву
         String [] str = {"golf", "hatchback",  "coupe", "jeep", "compact"};
         for (String s : str) {
-            if (model.equals(s)){
+            if (s.equals(model)){
                 return true;
             }
         }

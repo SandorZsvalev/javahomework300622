@@ -10,7 +10,7 @@ public class Main {
         Car car5 = new Car(800,90,"front wheel","auto","blue","compact");
 
         // сделали конструктором с некорректными значениями
-        Car car6 = new Car(0,0,"aaa","aaa","","zzz");
+        Car car6 = new Car(0,0,"aaa","aaa",null,"zzz");
         // сеттерами задаем корректные значения
         car6.setEngineCapacity(1400);
         car6.setEngineHP(110);
