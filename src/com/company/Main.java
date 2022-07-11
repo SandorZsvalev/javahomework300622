@@ -3,48 +3,60 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-        Car car1 = new Car(1600,116,"front wheel","manual","white", "golf");
-        Car car2 = new Car(3500,210,"four wheel","auto","black", "hatchback");
-        Car car3 = new Car(2200,180,"rear wheel","manual","green", "coupe");
-        Car car4 = new Car(5600,350,"four wheel","auto","red", "jeep");
-        Car car5 = new Car(800,90,"front wheel","auto","blue","compact");
 
-        // сделали конструктором с некорректными значениями
-        Car car6 = new Car(0,0,"aaa","aaa",null,"zzz");
-        // сеттерами задаем корректные значения
-        car6.setEngineCapacity(1400);
-        car6.setEngineHP(110);
-        car6.setDriveType("front wheel");
-        car6.setGear("manual");
-        car6.setColor("white");
-        car6.setModel("hatchback");
+        Lamborghini urus = new Lamborghini(4000,650,"rear wheel","manual","yellow","luxury car","urus");
+        Landrover rangeRover = new Landrover(3500,300,"four wheel","auto","green",4000,"range rover");
+        Volvo fh16 = new Volvo(16000,650,"front wheel","manual","white","yes","FH16");
 
-        // делаем дубликаты с помощью конструктора копирования
-        Car car7 = new Car (car1);
-        Car car8 = new Car (car2);
+        Car [] cars = {urus,rangeRover,fh16};
 
-        Car [] cars = {car1,car2,car3,car4,car5,car6,car7,car8};
+        SportCar [] sportCars = {urus};
+        OffRoadCar [] offRoadCars = {rangeRover};
+        Truck [] trucks = {fh16};
 
-        // вывод с помощью переопределенного метода toString
-//        for (Car car : cars) {
-//            System.out.println(car);
-//       }
+        Lamborghini [] lambos = {urus};
+        Landrover [] landrovers = {rangeRover};
+        Volvo [] volvos = {fh16};
 
-        // вывод с помощью геттеров через массив c помощью отдельного метода
-        printCars(cars);
-
-        System.out.println("___________________");
-
-        // заменяем первую машину на вторую, оставляем не тронутым только первый параметр - модель
-        Car.changeCars (car1,car2);
+        for (Car car : cars) {
+            // здесь выводятся полные сведения о полях объектов, т.к. метод toString переопределен в каждом классе
+            // Если бы метод не переопределялся в дочерних классах, то данные выводились бы в соответствии с методом toString
+            // из того родительского класса, где он переопределялся.
+            System.out.println(car);
+        }
+        System.out.println("---------------------");
 
         printCars(cars);
+
+        System.out.println("---------------------");
+
+        for (Car car : cars) {
+            car.drive();
+        }
+
+        System.out.println();
+
+        for (SportCar sportCar : sportCars) {
+            System.out.println("This " + sportCar.CAR_CLASS+ " is used as "+sportCar.getTypeOfUse());
+            sportCar.fastDrive();
+        }
+
+        System.out.println();
+
+        for (Lamborghini lambo : lambos) {
+            System.out.println("This " + lambo.CAR_CLASS+ " is used as "+lambo.getTypeOfUse());
+            lambo.fastDrive();
+            lambo.goToLamboService();
+
+        }
+
+        System.out.println();
 
     }
 
     public static void printCars (Car [] cars){
         for (Car car : cars) {
-            System.out.println( "Автомобиль "+car.getModel() +
+            System.out.println( "Автомобиль " + car.getModel() +
                     ", объем двигателя "+car.getEngineCapacity() +
                     ", мощность "+car.getEngineHP() +
                     ", коробка передач "+car.getGear() +
@@ -53,5 +65,6 @@ public class Main {
             );
         }
     }
+
 
 }

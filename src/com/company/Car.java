@@ -7,20 +7,22 @@ public class Car {
     private static final int DEFAULT_ENGINE_CAPACITY = 50;
     private static final int DEFAULT_ENGINE_HP = 0;
 
+    protected static final String UNDEFINED_MODEL = "Undefined model";
+
+    protected String model;
+
     private int engineCapacity;
     private int engineHP;
     private String gear;
     private String driveType;
     private String color;
-    private String model;
 
-    public Car(int engineCapacity, int engineHP, String driveType, String gear, String color, String model) {
+    public Car(int engineCapacity, int engineHP, String driveType, String gear, String color) {
         this.engineCapacity = checkEngineCapacity (engineCapacity) ? engineCapacity : DEFAULT_ENGINE_CAPACITY;
         this.engineHP = checkEngineHP (engineHP) ? engineHP : DEFAULT_ENGINE_HP;
         this.gear = checkGear(gear) ? gear : "not specified";
         this.driveType = checkDriveType(driveType) ? driveType : "not specified";
         this.color = checkColor(color) ? color : "null value";
-        this.model = checkModel(model) ? model : "unknown model";
     }
 
     public Car(Car car) {
@@ -29,7 +31,6 @@ public class Car {
         this.gear = car.gear;
         this.driveType = car.driveType;
         this.color = car.color;
-        this.model = car.model;
         }
 
     public int getEngineCapacity() { return engineCapacity; }
@@ -42,14 +43,15 @@ public class Car {
 
     public String getColor() { return color; }
 
-    public String getModel() { return model; }
+    public String getModel() {return model; }
+
 
     public void setEngineCapacity(int engineCapacity) {
-        this.engineCapacity = checkEngineCapacity (engineCapacity) ? engineCapacity : 50;
+        this.engineCapacity = checkEngineCapacity (engineCapacity) ? engineCapacity : DEFAULT_ENGINE_CAPACITY;
     }
 
     public void setEngineHP(int engineHP) {
-        this.engineHP = checkEngineHP (engineHP) ? engineHP : 0;
+        this.engineHP = checkEngineHP (engineHP) ? engineHP : DEFAULT_ENGINE_HP;
     }
 
     public void setGear(String gear) {
@@ -64,17 +66,14 @@ public class Car {
         this.color = checkColor(color) ? color : "null value";
     }
 
-    public void setModel(String model) {
-        this.model = checkModel(model) ? model : "unknown model";
-    }
 
     // методы проверок данных
     private boolean checkEngineCapacity(int engineCapacity){
-        return engineCapacity > 50;
+        return engineCapacity > DEFAULT_ENGINE_CAPACITY;
     }
 
     private boolean checkEngineHP(int engineHP){
-        return engineHP > 0;
+        return engineHP > DEFAULT_ENGINE_HP;
     }
 
     private boolean checkGear(String gear) {
@@ -106,10 +105,9 @@ public class Car {
         }
     }
 
-    private boolean checkModel (String model) {
+    protected boolean checkModel (String [] models, String model) {
         // здесь проверяем циклом по массиву
-        String [] str = {"golf", "hatchback",  "coupe", "jeep", "compact"};
-        for (String s : str) {
+        for (String s : models) {
             if (s.equals(model)){
                 return true;
             }
@@ -120,8 +118,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Автомобиль "+ model +" : " +
-                "Объем двигателя = " + engineCapacity +
+        return   "Объем двигателя = " + engineCapacity +
                 ", мощность двигателя = " + engineHP +
                 ", коробка передач = " + gear +
                 ", привод = " + driveType +
@@ -151,5 +148,8 @@ public class Car {
         car1.color = bufferColor;
     }
 
+    public void drive(){
+        System.out.println("This unknown car can only drive with Power "+getEngineHP() + " and "+getGear()+" gear type");
+    }
 
 }
