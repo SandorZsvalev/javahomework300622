@@ -1,8 +1,7 @@
 package com.company;
 
-public class Truck extends Car{
-
-    protected final String CAR_CLASS = "Truck";
+public class Truck extends Car {
+    static final String CAR_CLASS = "Truck";
     private boolean withTrailer;
 
     public Truck(int engineCapacity, int engineHP, String driveType, String gear, String color, String trailer) {
@@ -10,29 +9,29 @@ public class Truck extends Car{
         this.withTrailer = checkTrailerIsOn(trailer);
     }
 
-    private boolean checkTrailerIsOn(String trailer){
+    private boolean checkTrailerIsOn(String trailer) {
         return "yes".equals(trailer);
     }
 
-    private String trailer () {
+    private String ifTrailerIsOn() {
         if (withTrailer) {
             return "Yes";
         }
         return "No";
     }
 
-    protected void carryCargo(){
+    protected void carryCargo() {
         System.out.println("The car can goes with a cargo");
     }
 
-    protected void goToLoad(){
+    protected void goToLoad() {
         System.out.println("Goes to load");
     }
 
     @Override
     public String toString() {
-        return  " <-- СВОЙСТВА ГРУЗОВИКА Класс машины = " + CAR_CLASS +
-                ",  с прицепом = "+ trailer() + ", СВОЙСТВА ГРУЗОВИКА --> "+
+        return " <-- СВОЙСТВА ГРУЗОВИКА Класс машины = " + CAR_CLASS +
+                ",  с прицепом = " + ifTrailerIsOn() + ", СВОЙСТВА ГРУЗОВИКА --> " +
                 super.toString();
     }
 }
